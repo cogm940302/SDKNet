@@ -12,9 +12,9 @@ namespace SdkNet.Validators
     {
         public DatosAdicionalesValidator()
         {
-            RuleFor(dataItem => dataItem.id).GreaterThan(0);
-            RuleFor(dataItem => dataItem.label).MinimumLength(1).MaximumLength(60);
-            RuleFor(dataItem => dataItem.value).MinimumLength(1).MaximumLength(30);
+            RuleFor(dataItem => dataItem.id).GreaterThan(-1);
+            RuleFor(dataItem => dataItem.label).NotNull().MinimumLength(1).MaximumLength(60);
+            RuleFor(dataItem => dataItem.value).NotNull().MinimumLength(1).MaximumLength(100);
 
         }
 

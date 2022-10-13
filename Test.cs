@@ -8,6 +8,7 @@ using SdkNet.AES;
 using SdkNet.Http;
 using SdkNet.Models;
 using System.ComponentModel.DataAnnotations;
+using static SdkNet.Models.DatosAdicionalesData;
 
 namespace SdkNet
 {
@@ -25,6 +26,14 @@ namespace SdkNet
                 WPPClient client = new WPPClient("https://sandboxpo.mit.com.mx/gen", "SNDBX123",
                     "5DCC67393750523CD165F17E1EFADD21");
                 UrlData urlData = new UrlData();
+                DatosAdicionalesData datosAd = new DatosAdicionalesData();
+                HashSet<DataItem> dataAlgo = new HashSet<DataItem>();
+                DataItem dataItem = new DataItem();
+                dataItem.id = 0;
+                dataItem.value = "valor";
+                dataItem.label = "Este es el label";
+                dataAlgo.Add(dataItem);
+                datosAd.data = dataAlgo;
                 urlData.reference = "reference001";
                 urlData.amount = 10.0;
                 urlData.moneda = UrlData.MonedaType.MXN;
@@ -39,6 +48,7 @@ namespace SdkNet
                 PaymentData paymentData = new PaymentData();
                 paymentData.business = businessData;
                 paymentData.url = urlData;
+                paymentData.additionalData = datosAd;
                 var responseURL = client.GetUrlPayment(paymentData);
                 Console.WriteLine("La url es: " + responseURL);
             } catch (ValidationException ve)

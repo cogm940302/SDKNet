@@ -16,6 +16,7 @@ using SdkNet.ExceptionHandler;
 using SdkNet.Http;
 using SdkNet.Models;
 using SdkNet.Validators;
+using static SdkNet.Models.DatosAdicionalesData;
 
 namespace SdkNet
 {
@@ -86,6 +87,15 @@ namespace SdkNet
             if (payment.data3ds != null) { 
                 D3DSValidator d3dsValidator = new D3DSValidator();
                 d3dsValidator.ValidateAndThrow(payment.data3ds);
+            }
+            if (payment.additionalData != null && payment.additionalData.data != null)
+            {
+                foreach (DataItem dataItem in payment.additionalData.data)
+                {
+                    DatosAdicionalesValidator datosValidator = new DatosAdicionalesValidator();
+                    datosValidator.ValidateAndThrow(dataItem);
+                }
+
             }
             UrlValidator urlDataValidator = new UrlValidator();
             urlDataValidator.ValidateAndThrow(payment.url);
